@@ -14,7 +14,7 @@ dnf5 install -y tmux
 dnf5 group install -y xfce-desktop-environment
 dnf5 install -y \
     lightdm \
-    lightdm-gtk \
+    lightdm-gtk-greeter \
     xfce4-terminal \
     NetworkManager-wifi \
     glibc-all-langpacks \
@@ -26,6 +26,18 @@ dnf5 install -y \
 # dnf5 -y install package
 # Disable COPRs so they don't end up enabled on the final image:
 # dnf5 -y copr disable ublue-os/staging
+
+
+mkdir -p /usr/lib/tmpfiles.d
+
+
+cat <<EOF > /usr/lib/tmpfiles.d/lightdm.conf
+# Type  Path                           Mode  UID      GID      Age  Argument
+d       /var/lib/lightdm               0750  lightdm  lightdm  -    -
+d       /var/lib/lightdm-data          0750  lightdm  lightdm  -    -
+d       /var/lib/lightdm-data/lightdm  0750  lightdm  lightdm  -    -
+d       /var/cache/lightdm             0750  lightdm  lightdm  -    -
+EOF
 
 #### Example for enabling a System Unit File
 
