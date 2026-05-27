@@ -11,6 +11,14 @@ set -ouex pipefail
 
 # this installs a package from fedora repos
 dnf5 install -y tmux 
+dnf5 group install -y xfce-desktop-environment
+dnf5 install -y \
+    lightdm \
+    lightdm-gtk \
+    xfce4-terminal \
+    NetworkManager-wifi \
+    glibc-all-langpacks \
+    git
 
 # Use a COPR Example:
 #
